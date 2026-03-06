@@ -73,6 +73,20 @@ npm run preview  # Preview production build
 
 See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines on submitting listings, reporting issues, and helping maintain the directory.
 
+## Data Sources
+
+This directory is built from multiple community sources:
+
+- **[r/adhdindia wiki](https://www.reddit.com/r/adhdindia/wiki/doctors/)** — initial seed data
+- **[Impulse ADHD](https://impulseadhd.github.io)** — community-maintained database by the r/adhdindia mod team
+
+To sync the latest data from Impulse ADHD, run:
+
+```bash
+python scripts/sync_impulse.py          # Dry run — preview changes
+python scripts/sync_impulse.py --apply  # Write to doctors.json
+```
+
 ## License
 
 Data: [CC0 1.0 (Public Domain)](LICENSE)
