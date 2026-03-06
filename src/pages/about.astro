@@ -95,6 +95,15 @@ const base = import.meta.env.BASE_URL;
         </div>
       </div>
 
+      <div class="data-sources">
+        <h3>Data Sources</h3>
+        <p>This directory is built from community-contributed data. We gratefully acknowledge:</p>
+        <ul>
+          <li><a href="https://www.reddit.com/r/adhdindia/wiki/doctors/" target="_blank" rel="noopener">r/adhdindia wiki</a> — initial seed data from the subreddit community</li>
+          <li><a href="https://impulseadhd.github.io" target="_blank" rel="noopener">Impulse ADHD</a> — community-maintained database by the r/adhdindia mod team</li>
+        </ul>
+      </div>
+
       <div class="crisis-box">
         <h3>Crisis Resources</h3>
         <p><strong>iCall:</strong> 9152987821 (Mon-Sat, 8am-10pm)</p>
@@ -135,5 +144,40 @@ const base = import.meta.env.BASE_URL;
   .faq-item p {
     font-size: 0.9rem;
     color: var(--color-text-secondary);
+  }
+
+  .data-sources {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius);
+    padding: 1rem 1.25rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .data-sources h3 {
+    font-size: 0.95rem;
+    font-weight: 600;
+    margin-bottom: 0.4rem;
+  }
+
+  .data-sources p {
+    font-size: 0.9rem;
+    color: var(--color-text-secondary);
+    margin-bottom: 0.5rem;
+  }
+
+  .data-sources ul {
+    list-style: disc;
+    padding-left: 1.25rem;
+    font-size: 0.9rem;
+    color: var(--color-text-secondary);
+  }
+
+  .data-sources li {
+    margin-bottom: 0.25rem;
+  }
+
+  .data-sources a {
+    color: var(--color-primary);
   }
 </style>
