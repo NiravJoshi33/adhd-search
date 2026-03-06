@@ -1,5 +1,6 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+const base = import.meta.env.BASE_URL;
 ---
 
 <BaseLayout title="ADHD Treatment Directory - India" activePage="home">
@@ -8,8 +9,8 @@ import BaseLayout from "../layouts/BaseLayout.astro";
       <h1>Find ADHD-Aware Providers in India</h1>
       <p>A community-built directory of psychiatrists, clinics, and hospitals that take ADHD seriously — for adults and children.</p>
       <div class="hero-actions">
-        <a href="/directory" class="btn btn-primary">Find a Provider</a>
-        <a href="/submit" class="btn btn-secondary">Submit a Listing</a>
+        <a href={`${base}directory`} class="btn btn-primary">Find a Provider</a>
+        <a href={`${base}submit`} class="btn btn-secondary">Submit a Listing</a>
       </div>
     </div>
   </section>

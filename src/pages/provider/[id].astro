@@ -11,6 +11,7 @@ export function getStaticPaths() {
 }
 
 const { provider } = Astro.props;
+const base = import.meta.env.BASE_URL;
 
 const typeLabels: Record<string, string> = {
   psychiatrist: "Psychiatrist",
@@ -36,18 +37,18 @@ const yesNoLabels: Record<string, string> = {
 // Build report issue URL
 const reportTitle = encodeURIComponent(`Report issue: ${provider.name} (${provider.id})`);
 const reportBody = encodeURIComponent(`### Listing ID\n${provider.id}\n\n### What is incorrect or outdated?\n\n\n### Suggested correction (if any)\n\n`);
-const reportUrl = `https://github.com/user/adhd-search/issues/new?title=${reportTitle}&body=${reportBody}&labels=report`;
+const reportUrl = `https://github.com/NiravJoshi33/adhd-search/issues/new?title=${reportTitle}&body=${reportBody}&labels=report`;
 
 // Build update URL
 const updateTitle = encodeURIComponent(`Update listing: ${provider.name} (${provider.id})`);
 const updateBody = encodeURIComponent(`### Listing ID\n${provider.id}\n\n### Fields to update\n\n\n### Source of updated information\n\n`);
-const updateUrl = `https://github.com/user/adhd-search/issues/new?title=${updateTitle}&body=${updateBody}&labels=update`;
+const updateUrl = `https://github.com/NiravJoshi33/adhd-search/issues/new?title=${updateTitle}&body=${updateBody}&labels=update`;
 ---
 
 <BaseLayout title={`${provider.name} - ADHD Directory India`} description={`${provider.name} - ${typeLabels[provider.type]} in ${provider.city}, ${provider.state}. ADHD provider directory India.`}>
   <section class="detail-section">
     <div class="container">
-      <a href="/directory" class="detail-back">&larr; Back to directory</a>
+      <a href={`${base}directory`} class="detail-back">&larr; Back to directory</a>
 
       <div class="detail-card">
         <div class="detail-header">

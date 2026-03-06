@@ -6,6 +6,7 @@ interface Props {
 }
 
 const { title, description = "A crowdsourced, ADHD-specific directory of psychiatrists, clinics, and hospitals in India.", activePage = "" } = Astro.props;
+const base = import.meta.env.BASE_URL;
 ---
 
 <!DOCTYPE html>
@@ -15,16 +16,16 @@ const { title, description = "A crowdsourced, ADHD-specific directory of psychia
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>{title}</title>
   <meta name="description" content={description}>
-  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="icon" type="image/svg+xml" href={`${base}favicon.svg`}>
 </head>
 <body>
   <header class="site-header">
     <div class="container">
-      <a href="/" class="site-logo">ADHD Directory India</a>
+      <a href={base} class="site-logo">ADHD Directory India</a>
       <nav class="site-nav">
-        <a href="/directory" class:list={[{ active: activePage === "directory" }]}>Find a Provider</a>
-        <a href="/submit" class:list={[{ active: activePage === "submit" }]}>Submit</a>
-        <a href="/about" class:list={[{ active: activePage === "about" }]}>About</a>
+        <a href={`${base}directory`} class:list={[{ active: activePage === "directory" }]}>Find a Provider</a>
+        <a href={`${base}submit`} class:list={[{ active: activePage === "submit" }]}>Submit</a>
+        <a href={`${base}about`} class:list={[{ active: activePage === "about" }]}>About</a>
       </nav>
     </div>
   </header>
@@ -35,7 +36,7 @@ const { title, description = "A crowdsourced, ADHD-specific directory of psychia
 
   <footer class="site-footer">
     <div class="container">
-      <p>ADHD Directory India &middot; Open source &middot; <a href="https://github.com" target="_blank" rel="noopener">GitHub</a> &middot; <a href="/about">About</a></p>
+      <p>ADHD Directory India &middot; Open source &middot; <a href="https://github.com/NiravJoshi33/adhd-search" target="_blank" rel="noopener">GitHub</a> &middot; <a href={`${base}about`}>About</a></p>
     </div>
   </footer>
 </body>

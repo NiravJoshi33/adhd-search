@@ -1,4 +1,4 @@
-const REPO_URL = "https://github.com/user/adhd-search";
+const REPO_URL = "https://github.com/NiravJoshi33/adhd-search";
 
 const form = document.getElementById("submit-form") as HTMLFormElement;
 

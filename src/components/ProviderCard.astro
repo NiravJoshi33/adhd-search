@@ -21,6 +21,7 @@ interface Props {
 }
 
 const { provider } = Astro.props;
+const base = import.meta.env.BASE_URL;
 
 const typeLabels: Record<string, string> = {
   psychiatrist: "Psychiatrist",
@@ -31,7 +32,7 @@ const typeLabels: Record<string, string> = {
 };
 ---
 
-<a href={`/provider/${provider.id}`} class="provider-card" data-provider-id={provider.id}>
+<a href={`${base}provider/${provider.id}`} class="provider-card" data-provider-id={provider.id}>
   <div class="provider-card-header">
     <h3>{provider.name}</h3>
     <span class="provider-type">{typeLabels[provider.type] || provider.type}</span>
