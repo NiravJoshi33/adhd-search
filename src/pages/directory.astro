@@ -1,0 +1,235 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import ProviderCard from "../components/ProviderCard.astro";
+import providers from "../../data/doctors.json";
+
+// Extract unique values for filter dropdowns
+const cities = [...new Set(providers.map((p) => p.city))].sort();
+const states = [...new Set(providers.map((p) => p.state))].sort();
+const languages = [...new Set(providers.flatMap((p) => p.languages))].sort();
+---
+
+<BaseLayout title="Find a Provider - ADHD Directory India" activePage="directory" description="Search and filter ADHD-aware psychiatrists, clinics, and hospitals across India.">
+  <section class="filters-section">
+    <div class="container">
+      <h1 class="sr-only">Provider Directory</h1>
+
+      <div class="search-bar">
+        <input type="text" id="search-input" placeholder="Search by name, city, or keyword..." aria-label="Search providers">
+      </div>
+
+      <div class="filter-row" id="top-filters">
+        <select id="filter-city" aria-label="Filter by city">
+          <option value="">All Cities</option>
+          {cities.map((c) => <option value={c}>{c}</option>)}
+        </select>
+        <select id="filter-state" aria-label="Filter by state">
+          <option value="">All States</option>
+          {states.map((s) => <option value={s}>{s}</option>)}
+        </select>
+        <select id="filter-teleconsult" aria-label="Filter by teleconsult">
+          <option value="">Teleconsult</option>
+          <option value="yes">Yes</option>
+          <option value="no">No</option>
+        </select>
+        <select id="filter-adult" aria-label="Filter by adult ADHD">
+          <option value="">Adult ADHD</option>
+          <option value="yes">Yes</option>
+        </select>
+        <select id="filter-child" aria-label="Filter by child ADHD">
+          <option value="">Child ADHD</option>
+          <option value="yes">Yes</option>
+        </select>
+        <select id="filter-med" aria-label="Filter by medication management">
+          <option value="">Medication Mgmt</option>
+          <option value="yes">Yes</option>
+        </select>
+        <select id="filter-language" aria-label="Filter by language">
+          <option value="">All Languages</option>
+          {languages.map((l) => <option value={l}>{l}</option>)}
+        </select>
+        <select id="filter-verified-within" aria-label="Filter by verification recency">
+          <option value="">Verified within</option>
+          <option value="3">3 months</option>
+          <option value="6">6 months</option>
+          <option value="12">12 months</option>
+        </select>
+      </div>
+
+      <button class="advanced-toggle" id="advanced-toggle" type="button">Show advanced filters</button>
+
+      <div class="advanced-filters" id="advanced-filters">
+        <select id="filter-stimulant" aria-label="Filter by stimulant comfort">
+          <option value="">Stimulant Comfort</option>
+          <option value="yes">Yes</option>
+          <option value="no">No</option>
+        </select>
+        <select id="filter-assessment" aria-label="Filter by assessment style">
+          <option value="">Assessment Style</option>
+          <option value="structured">Structured</option>
+          <option value="semi-structured">Semi-structured</option>
+          <option value="informal">Informal</option>
+        </select>
+        <select id="filter-type" aria-label="Filter by provider type">
+          <option value="">Provider Type</option>
+          <option value="psychiatrist">Psychiatrist</option>
+          <option value="clinic">Clinic</option>
+          <option value="hospital_dept">Hospital Dept</option>
+        </select>
+        <select id="filter-comorbidity" aria-label="Filter by comorbidity experience">
+          <option value="">Comorbidity Experience</option>
+          <option value="anxiety">Anxiety</option>
+          <option value="depression">Depression</option>
+          <option value="asd">ASD</option>
+          <option value="ocd">OCD</option>
+          <option value="ld">Learning Disabilities</option>
+        </select>
+      </div>
+
+      <div class="sort-row">
+        <label for="sort-by">Sort:</label>
+        <select id="sort-by">
+          <option value="verified">Recently Verified</option>
+          <option value="name">A–Z</option>
+          <option value="city">City</option>
+        </select>
+        <button class="btn btn-sm btn-secondary" id="clear-filters" type="button">Clear filters</button>
+      </div>
+
+      <p class="results-count" id="results-count"></p>
+    </div>
+  </section>
+
+  <section class="container">
+    <div class="provider-list" id="provider-list">
+      {providers
+        .sort((a, b) => b.last_verified.localeCompare(a.last_verified))
+        .map((p) => <ProviderCard provider={p} />)}
+    </div>
+    <p class="no-results hidden" id="no-results">No providers match your filters. Try broadening your search.</p>
+  </section>
+</BaseLayout>
+
+<script define:vars={{ providers }}>
+  window.__PROVIDERS__ = providers;
+</script>
+<script src="../scripts/filters.ts"></script>
+
+<style>
+  .filters-section {
+    padding: 1.5rem 0 1rem;
+  }
+
+  .search-bar {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .search-bar input {
+    flex: 1;
+    padding: 0.6rem 0.75rem;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius);
+    font-size: 0.95rem;
+    outline: none;
+  }
+
+  .search-bar input:focus {
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.15);
+  }
+
+  .filter-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .filter-row select {
+    padding: 0.45rem 0.6rem;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius);
+    font-size: 0.85rem;
+    background: var(--color-surface);
+    outline: none;
+    min-width: 140px;
+  }
+
+  .filter-row select:focus {
+    border-color: var(--color-primary);
+  }
+
+  .advanced-toggle {
+    background: none;
+    border: none;
+    color: var(--color-primary);
+    font-size: 0.85rem;
+    cursor: pointer;
+    font-weight: 500;
+    padding: 0.3rem 0;
+    margin-bottom: 0.75rem;
+  }
+
+  .advanced-filters {
+    display: none;
+  }
+
+  .advanced-filters.open {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .advanced-filters select {
+    padding: 0.45rem 0.6rem;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius);
+    font-size: 0.85rem;
+    background: var(--color-surface);
+    outline: none;
+    min-width: 140px;
+  }
+
+  .sort-row {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .sort-row label {
+    font-size: 0.85rem;
+    color: var(--color-text-secondary);
+  }
+
+  .sort-row select {
+    padding: 0.45rem 0.6rem;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius);
+    font-size: 0.85rem;
+    background: var(--color-surface);
+    outline: none;
+  }
+
+  .results-count {
+    font-size: 0.85rem;
+    color: var(--color-text-secondary);
+    margin-bottom: 1rem;
+  }
+
+  .provider-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    padding-bottom: 2rem;
+  }
+
+  .no-results {
+    text-align: center;
+    color: var(--color-text-secondary);
+    padding: 2rem 0;
+  }
+</style>

@@ -1,0 +1,102 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+---
+
+<BaseLayout title="ADHD Treatment Directory - India" activePage="home">
+  <section class="hero">
+    <div class="container">
+      <h1>Find ADHD-Aware Providers in India</h1>
+      <p>A community-built directory of psychiatrists, clinics, and hospitals that take ADHD seriously — for adults and children.</p>
+      <div class="hero-actions">
+        <a href="/directory" class="btn btn-primary">Find a Provider</a>
+        <a href="/submit" class="btn btn-secondary">Submit a Listing</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="container">
+    <div class="disclaimer">
+      <strong>Disclaimer:</strong> This directory is not medical advice. It does not endorse or recommend any provider. Always verify information directly before booking. This is not an emergency or crisis resource — if you need immediate help, contact <strong>iCall (9152987821)</strong> or <strong>Vandrevala Foundation (1860-2662-345)</strong>.
+    </div>
+  </section>
+
+  <section class="info-section">
+    <div class="container">
+      <h2>What This Directory Helps With</h2>
+      <div class="info-grid">
+        <div class="info-card">
+          <h3>Adult ADHD Diagnosis</h3>
+          <p>Find providers who take adult ADHD seriously and offer structured assessments — not dismissals.</p>
+        </div>
+        <div class="info-card">
+          <h3>Child & Adolescent ADHD</h3>
+          <p>Filter for providers experienced with children, including school support and family guidance.</p>
+        </div>
+        <div class="info-card">
+          <h3>Medication Management</h3>
+          <p>Identify providers who handle ongoing medication management and follow-ups.</p>
+        </div>
+        <div class="info-card">
+          <h3>Teleconsultation</h3>
+          <p>Filter for providers offering teleconsult — critical for people outside metro cities.</p>
+        </div>
+        <div class="info-card">
+          <h3>Transparent Information</h3>
+          <p>See fees, wait times, languages, assessment style, and verification status upfront.</p>
+        </div>
+        <div class="info-card">
+          <h3>Community-Verified</h3>
+          <p>Listings are crowdsourced and verified. Every edit is tracked in public git history.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="info-section">
+    <div class="container">
+      <h2>What This Is Not</h2>
+      <div class="info-grid">
+        <div class="info-card">
+          <h3>Not a Booking Platform</h3>
+          <p>We provide information to help you find providers. Contact them directly to book.</p>
+        </div>
+        <div class="info-card">
+          <h3>Not Medical Advice</h3>
+          <p>This directory lists factual provider information only. No treatment recommendations.</p>
+        </div>
+        <div class="info-card">
+          <h3>Not a Reviews Site</h3>
+          <p>No freeform reviews or ratings. Only structured, factual fields to maintain trust and safety.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .hero {
+    padding: 3rem 0 2rem;
+    text-align: center;
+  }
+
+  .hero h1 {
+    font-size: 2rem;
+    font-weight: 800;
+    line-height: 1.2;
+    margin-bottom: 1rem;
+  }
+
+  .hero p {
+    font-size: 1.1rem;
+    color: var(--color-text-secondary);
+    max-width: 600px;
+    margin: 0 auto 1.5rem;
+  }
+
+  .hero-actions {
+    display: flex;
+    gap: 0.75rem;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+</style>

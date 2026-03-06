@@ -1,0 +1,18 @@
+---
+interface Props {
+  tier: string;
+}
+
+const { tier } = Astro.props;
+
+const labels: Record<string, string> = {
+  "community-verified": "Community Verified",
+  reviewed: "Reviewed",
+  unverified: "Unverified",
+  stale: "Stale",
+};
+
+const badgeClass = `badge badge-${tier}`;
+---
+
+<span class={badgeClass}>{labels[tier] || tier}</span>

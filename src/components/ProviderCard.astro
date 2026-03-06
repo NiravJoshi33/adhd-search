@@ -1,0 +1,118 @@
+---
+import VerificationBadge from "./VerificationBadge.astro";
+
+interface Props {
+  provider: {
+    id: string;
+    name: string;
+    type: string;
+    city: string;
+    state: string;
+    teleconsult: string;
+    fee_range: string;
+    last_verified: string;
+    verification_tier: string;
+    adult_adhd: string;
+    child_adhd: string;
+    med_mgmt: string;
+    languages: string[];
+    tags: string[];
+  };
+}
+
+const { provider } = Astro.props;
+
+const typeLabels: Record<string, string> = {
+  psychiatrist: "Psychiatrist",
+  clinic: "Clinic",
+  hospital_dept: "Hospital Dept",
+};
+---
+
+<a href={`/provider/${provider.id}`} class="provider-card" data-provider-id={provider.id}>
+  <div class="provider-card-header">
+    <h3>{provider.name}</h3>
+    <span class="provider-type">{typeLabels[provider.type] || provider.type}</span>
+  </div>
+  <p class="provider-location">{provider.city}, {provider.state}</p>
+  <div class="provider-tags">
+    {provider.adult_adhd === "yes" && <span class="tag tag-adult">Adult ADHD</span>}
+    {provider.child_adhd === "yes" && <span class="tag tag-child">Child ADHD</span>}
+    {provider.teleconsult === "yes" && <span class="tag tag-teleconsult">Teleconsult</span>}
+    {provider.med_mgmt === "yes" && <span class="tag tag-med">Medication Mgmt</span>}
+    {provider.tags.map((t) => <span class="tag">{t}</span>)}
+  </div>
+  <div class="provider-meta">
+    <VerificationBadge tier={provider.verification_tier} />
+    {provider.fee_range && <span>{provider.fee_range}</span>}
+    <span>{provider.languages.join(", ")}</span>
+  </div>
+</a>
+
+<style>
+  .provider-card {
+    display: block;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius);
+    padding: 1rem 1.25rem;
+    box-shadow: var(--shadow);
+    cursor: pointer;
+    transition: box-shadow 0.15s, border-color 0.15s;
+    text-decoration: none;
+    color: inherit;
+  }
+
+  .provider-card:hover {
+    box-shadow: var(--shadow-lg);
+    border-color: var(--color-primary);
+    text-decoration: none;
+  }
+
+  .provider-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 0.75rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .provider-card h3 {
+    font-size: 1.05rem;
+    font-weight: 600;
+    margin: 0;
+  }
+
+  .provider-type {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--color-text-secondary);
+    background: #f1f5f9;
+    padding: 0.15rem 0.5rem;
+    border-radius: 4px;
+    white-space: nowrap;
+  }
+
+  .provider-location {
+    font-size: 0.9rem;
+    color: var(--color-text-secondary);
+    margin-bottom: 0.5rem;
+  }
+
+  .provider-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .provider-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    font-size: 0.8rem;
+    color: var(--color-text-secondary);
+    align-items: center;
+  }
+</style>

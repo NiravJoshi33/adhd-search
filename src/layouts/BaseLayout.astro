@@ -1,0 +1,115 @@
+---
+interface Props {
+  title: string;
+  description?: string;
+  activePage?: string;
+}
+
+const { title, description = "A crowdsourced, ADHD-specific directory of psychiatrists, clinics, and hospitals in India.", activePage = "" } = Astro.props;
+---
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{title}</title>
+  <meta name="description" content={description}>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+</head>
+<body>
+  <header class="site-header">
+    <div class="container">
+      <a href="/" class="site-logo">ADHD Directory India</a>
+      <nav class="site-nav">
+        <a href="/directory" class:list={[{ active: activePage === "directory" }]}>Find a Provider</a>
+        <a href="/submit" class:list={[{ active: activePage === "submit" }]}>Submit</a>
+        <a href="/about" class:list={[{ active: activePage === "about" }]}>About</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <slot />
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>ADHD Directory India &middot; Open source &middot; <a href="https://github.com" target="_blank" rel="noopener">GitHub</a> &middot; <a href="/about">About</a></p>
+    </div>
+  </footer>
+</body>
+</html>
+
+<style is:global>
+  @import "../styles/global.css";
+</style>
+
+<style>
+  .site-header {
+    background: var(--color-surface);
+    border-bottom: 1px solid var(--color-border);
+    padding: 0.75rem 0;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+
+  .site-header .container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .site-logo {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--color-text);
+    text-decoration: none;
+  }
+
+  .site-logo:hover { text-decoration: none; }
+
+  .site-nav {
+    display: flex;
+    gap: 1.25rem;
+    align-items: center;
+  }
+
+  .site-nav a {
+    color: var(--color-text-secondary);
+    font-size: 0.9rem;
+    font-weight: 500;
+  }
+
+  .site-nav a:hover,
+  .site-nav a.active {
+    color: var(--color-primary);
+    text-decoration: none;
+  }
+
+  .site-footer {
+    margin-top: auto;
+    padding: 1.5rem 0;
+    background: var(--color-surface);
+    border-top: 1px solid var(--color-border);
+    text-align: center;
+    font-size: 0.85rem;
+    color: var(--color-text-secondary);
+  }
+
+  .site-footer a {
+    color: var(--color-text-secondary);
+  }
+
+  .site-footer a:hover {
+    color: var(--color-primary);
+  }
+
+  @media (max-width: 480px) {
+    .site-nav { gap: 0.75rem; }
+    .site-nav a { font-size: 0.8rem; }
+  }
+</style>

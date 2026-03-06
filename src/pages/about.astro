@@ -1,0 +1,134 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+---
+
+<BaseLayout title="About - ADHD Treatment Directory India" activePage="about" description="About the ADHD Treatment Directory for India. Learn how verification works, how to contribute, and find crisis resources.">
+  <section class="info-section">
+    <div class="container">
+      <h1>About This Directory</h1>
+      <p class="about-intro">
+        People with ADHD in India — and their caregivers — often struggle to find psychiatrists or clinics that take ADHD seriously, offer proper assessments, and provide clear logistics. This directory exists to end the "call, get dismissed, try again" cycle.
+      </p>
+    </div>
+  </section>
+
+  <section class="info-section" style="padding-top: 0;">
+    <div class="container">
+      <h2>How Verification Works</h2>
+      <div class="info-grid" style="margin-top: 1rem;">
+        <div class="info-card">
+          <h3><span class="badge badge-unverified">Unverified</span></h3>
+          <p>Submitted but not yet reviewed by a maintainer.</p>
+        </div>
+        <div class="info-card">
+          <h3><span class="badge badge-reviewed">Reviewed</span></h3>
+          <p>Checked for completeness. Links and location validated by a maintainer.</p>
+        </div>
+        <div class="info-card">
+          <h3><span class="badge badge-community-verified">Community Verified</span></h3>
+          <p>Confirmed by 2+ independent sources or a recent patient report.</p>
+        </div>
+        <div class="info-card">
+          <h3><span class="badge badge-stale">Stale</span></h3>
+          <p>Last verified over 12 months ago, or 2+ reports of being unreachable.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="info-section" style="padding-top: 0;">
+    <div class="container">
+      <h2>Frequently Asked Questions</h2>
+      <div class="faq-list">
+        <div class="faq-item">
+          <h3>How do I submit a listing?</h3>
+          <p>Go to the <a href="/submit">Submit page</a>, fill in the structured form, and click submit. This generates a prefilled GitHub Issue. No account is needed beyond a free GitHub account.</p>
+        </div>
+        <div class="faq-item">
+          <h3>How do I report incorrect or stale information?</h3>
+          <p>Every listing has a "Report issue" button. Click it to open a prefilled GitHub Issue describing the problem. You can also file an issue directly on the GitHub repository.</p>
+        </div>
+        <div class="faq-item">
+          <h3>Do you rank or rate providers?</h3>
+          <p>No. This directory contains structured factual information only. There are no ratings, scores, or freeform reviews. This is intentional — it prevents defamation and keeps the directory safe and trustworthy.</p>
+        </div>
+        <div class="faq-item">
+          <h3>Can a provider request removal?</h3>
+          <p>Yes. If a clinician or institution requests removal or correction, we handle it within 7 days. Contact us via GitHub Issues or email.</p>
+        </div>
+        <div class="faq-item">
+          <h3>Is this only for metros?</h3>
+          <p>No. We welcome listings from any city in India. Teleconsult providers are especially valuable for people in smaller cities. Use the teleconsult filter to find them.</p>
+        </div>
+        <div class="faq-item">
+          <h3>How is data stored?</h3>
+          <p>All data lives in a public <code>doctors.json</code> file in the GitHub repository. Every edit is tracked in git history. There is no database, no backend, and no API keys.</p>
+        </div>
+        <div class="faq-item">
+          <h3>Can I use this data?</h3>
+          <p>Yes. The data is released under the CC0 (public domain) license. You are free to use, share, and build upon it.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="info-section" style="padding-top: 0;">
+    <div class="container">
+      <h2>How to Contribute</h2>
+      <div class="info-grid" style="margin-top: 1rem;">
+        <div class="info-card">
+          <h3>Submit a new listing</h3>
+          <p>Use the <a href="/submit">submission form</a> to add a provider you know. Takes under 2 minutes.</p>
+        </div>
+        <div class="info-card">
+          <h3>Report stale info</h3>
+          <p>If a listing is outdated or incorrect, report it using the button on the listing page.</p>
+        </div>
+        <div class="info-card">
+          <h3>Help maintain</h3>
+          <p>We welcome co-maintainers. Check the CONTRIBUTING.md on GitHub to get started.</p>
+        </div>
+      </div>
+
+      <div class="crisis-box">
+        <h3>Crisis Resources</h3>
+        <p><strong>iCall:</strong> 9152987821 (Mon-Sat, 8am-10pm)</p>
+        <p><strong>Vandrevala Foundation:</strong> 1860-2662-345 (24/7)</p>
+        <p style="margin-top: 0.5rem; font-size: 0.85rem;">If you or someone you know is in immediate danger, please call emergency services (112) or go to the nearest hospital.</p>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .about-intro {
+    color: var(--color-text-secondary);
+    margin-top: 0.5rem;
+    max-width: 700px;
+  }
+
+  .faq-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-top: 1.5rem;
+  }
+
+  .faq-item {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius);
+    padding: 1rem 1.25rem;
+  }
+
+  .faq-item h3 {
+    font-size: 0.95rem;
+    font-weight: 600;
+    margin-bottom: 0.4rem;
+  }
+
+  .faq-item p {
+    font-size: 0.9rem;
+    color: var(--color-text-secondary);
+  }
+</style>

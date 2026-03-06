@@ -1,0 +1,302 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+---
+
+<BaseLayout title="Submit a Listing - ADHD Directory India" activePage="submit" description="Submit a new ADHD provider listing to the directory. Takes under 2 minutes.">
+  <section class="form-section">
+    <div class="container">
+      <h1>Submit a Listing</h1>
+      <p class="subtitle">Know an ADHD-aware provider? Add them to the directory. This form generates a GitHub Issue — no backend, fully transparent.</p>
+      <p class="subtitle time-est">Estimated time: under 2 minutes.</p>
+
+      <div class="disclaimer" style="margin: 1.5rem 0;">
+        <strong>Before submitting:</strong> Only include publicly available professional information. Do not include private contact details, patient information, or subjective opinions. See our <a href="/about">guidelines</a>.
+      </div>
+
+      <form class="submit-form" id="submit-form">
+        <fieldset>
+          <legend>Basic Information</legend>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="name">Provider Name *</label>
+              <span class="hint">Full name or clinic/hospital name</span>
+              <input type="text" id="name" required>
+            </div>
+            <div class="form-group">
+              <label for="type">Provider Type *</label>
+              <select id="type" required>
+                <option value="">Select...</option>
+                <option value="psychiatrist">Psychiatrist</option>
+                <option value="clinic">Clinic</option>
+                <option value="hospital_dept">Hospital Department</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="city">City *</label>
+              <input type="text" id="city" required>
+            </div>
+            <div class="form-group">
+              <label for="state">State *</label>
+              <input type="text" id="state" required>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="address">Address</label>
+            <span class="hint">Public clinic/office address only</span>
+            <input type="text" id="address">
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="website">Website</label>
+              <input type="url" id="website" placeholder="https://...">
+            </div>
+            <div class="form-group">
+              <label for="contact">Contact</label>
+              <span class="hint">Public phone or email only</span>
+              <input type="text" id="contact">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="booking_link">Booking Link</label>
+            <input type="url" id="booking_link" placeholder="https://...">
+          </div>
+          <div class="form-group">
+            <label for="languages">Languages *</label>
+            <span class="hint">Comma-separated, e.g. English, Hindi, Tamil</span>
+            <input type="text" id="languages" required placeholder="English, Hindi">
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <legend>Logistics</legend>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="teleconsult">Teleconsult Available *</label>
+              <select id="teleconsult" required>
+                <option value="unknown">Unknown</option>
+                <option value="yes">Yes</option>
+                <option value="no">No</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="fee_range">Fee Range</label>
+              <span class="hint">e.g. ₹800-₹1500</span>
+              <input type="text" id="fee_range">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="wait_time">Wait Time Estimate</label>
+            <span class="hint">e.g. 1-2 weeks</span>
+            <input type="text" id="wait_time">
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <legend>ADHD-Specific</legend>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="adult_adhd">Adult ADHD *</label>
+              <select id="adult_adhd" required>
+                <option value="unknown">Unknown</option>
+                <option value="yes">Yes</option>
+                <option value="no">No</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="child_adhd">Child ADHD *</label>
+              <select id="child_adhd" required>
+                <option value="unknown">Unknown</option>
+                <option value="yes">Yes</option>
+                <option value="no">No</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="adolescent_adhd">Adolescent ADHD</label>
+              <select id="adolescent_adhd">
+                <option value="unknown">Unknown</option>
+                <option value="yes">Yes</option>
+                <option value="no">No</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="assessment_style">Assessment Style</label>
+              <select id="assessment_style">
+                <option value="unknown">Unknown</option>
+                <option value="structured">Structured</option>
+                <option value="semi-structured">Semi-structured</option>
+                <option value="informal">Informal</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="med_mgmt">Medication Management *</label>
+              <select id="med_mgmt" required>
+                <option value="unknown">Unknown</option>
+                <option value="yes">Yes</option>
+                <option value="no">No</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="stimulant_comfort">Stimulant Comfort</label>
+              <span class="hint">Only if explicitly confirmed</span>
+              <select id="stimulant_comfort">
+                <option value="unknown">Unknown</option>
+                <option value="yes">Yes</option>
+                <option value="no">No</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Comorbidity Experience</label>
+            <div class="checkbox-group">
+              <label><input type="checkbox" name="comorbidities" value="anxiety"> Anxiety</label>
+              <label><input type="checkbox" name="comorbidities" value="depression"> Depression</label>
+              <label><input type="checkbox" name="comorbidities" value="asd"> ASD</label>
+              <label><input type="checkbox" name="comorbidities" value="ocd"> OCD</label>
+              <label><input type="checkbox" name="comorbidities" value="ld"> Learning Disabilities</label>
+              <label><input type="checkbox" name="comorbidities" value="other"> Other</label>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Tags</label>
+            <div class="checkbox-group">
+              <label><input type="checkbox" name="tags" value="adhd-aware"> ADHD-aware</label>
+              <label><input type="checkbox" name="tags" value="lgbtq-friendly"> LGBTQ-friendly</label>
+              <label><input type="checkbox" name="tags" value="non-judgmental"> Non-judgmental</label>
+              <label><input type="checkbox" name="tags" value="cashless"> Cashless</label>
+              <label><input type="checkbox" name="tags" value="school-support"> School support</label>
+            </div>
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <legend>Source</legend>
+          <div class="form-group">
+            <label for="source">How do you know this? *</label>
+            <select id="source" required>
+              <option value="">Select...</option>
+              <option value="contributor">I am / was a patient or caregiver</option>
+              <option value="public-profile">Found on public profile / listing</option>
+              <option value="clinic-website">Found on clinic website</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="notes">Additional Notes</label>
+            <span class="hint">Any context that helps maintainers verify this listing</span>
+            <textarea id="notes" rows="3"></textarea>
+          </div>
+        </fieldset>
+
+        <button type="submit" class="btn btn-primary">Generate GitHub Issue</button>
+      </form>
+    </div>
+  </section>
+</BaseLayout>
+
+<script src="../scripts/submit.ts"></script>
+
+<style>
+  .form-section {
+    padding: 1.5rem 0 2rem;
+  }
+
+  .form-section h1 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+  }
+
+  .subtitle {
+    color: var(--color-text-secondary);
+    margin-bottom: 0.25rem;
+  }
+
+  .time-est {
+    font-size: 0.9rem;
+    font-weight: 500;
+  }
+
+  .submit-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  fieldset {
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius);
+    padding: 1.25rem;
+    background: var(--color-surface);
+  }
+
+  legend {
+    font-weight: 600;
+    font-size: 0.95rem;
+    padding: 0 0.5rem;
+  }
+
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+    margin-top: 0.75rem;
+  }
+
+  .form-group label {
+    font-size: 0.85rem;
+    font-weight: 600;
+  }
+
+  .form-group .hint {
+    font-size: 0.8rem;
+    color: var(--color-text-secondary);
+  }
+
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
+    padding: 0.5rem 0.65rem;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius);
+    font-size: 0.95rem;
+    font-family: inherit;
+    outline: none;
+  }
+
+  .form-group input:focus,
+  .form-group select:focus,
+  .form-group textarea:focus {
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.15);
+  }
+
+  .form-row {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0rem;
+  }
+
+  @media (min-width: 640px) {
+    .form-row { grid-template-columns: 1fr 1fr; gap: 1rem; }
+  }
+
+  .checkbox-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-top: 0.25rem;
+  }
+
+  .checkbox-group label {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-weight: 400;
+    font-size: 0.9rem;
+  }
+</style>

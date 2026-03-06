@@ -1,0 +1,277 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import VerificationBadge from "../../components/VerificationBadge.astro";
+import providers from "../../../data/doctors.json";
+
+export function getStaticPaths() {
+  return providers.map((p) => ({
+    params: { id: p.id },
+    props: { provider: p },
+  }));
+}
+
+const { provider } = Astro.props;
+
+const typeLabels: Record<string, string> = {
+  psychiatrist: "Psychiatrist",
+  clinic: "Clinic",
+  hospital_dept: "Hospital Department",
+};
+
+const assessmentLabels: Record<string, string> = {
+  structured: "Structured",
+  "semi-structured": "Semi-structured",
+  informal: "Informal",
+  unknown: "Unknown",
+};
+
+const yesNoLabels: Record<string, string> = {
+  yes: "Yes",
+  no: "No",
+  unknown: "Unknown",
+};
+
+// Build report issue URL
+const reportTitle = encodeURIComponent(`Report issue: ${provider.name} (${provider.id})`);
+const reportBody = encodeURIComponent(`### Listing ID\n${provider.id}\n\n### What is incorrect or outdated?\n\n\n### Suggested correction (if any)\n\n`);
+const reportUrl = `https://github.com/user/adhd-search/issues/new?title=${reportTitle}&body=${reportBody}&labels=report`;
+
+// Build update URL
+const updateTitle = encodeURIComponent(`Update listing: ${provider.name} (${provider.id})`);
+const updateBody = encodeURIComponent(`### Listing ID\n${provider.id}\n\n### Fields to update\n\n\n### Source of updated information\n\n`);
+const updateUrl = `https://github.com/user/adhd-search/issues/new?title=${updateTitle}&body=${updateBody}&labels=update`;
+---
+
+<BaseLayout title={`${provider.name} - ADHD Directory India`} description={`${provider.name} - ${typeLabels[provider.type]} in ${provider.city}, ${provider.state}. ADHD provider directory India.`}>
+  <section class="detail-section">
+    <div class="container">
+      <a href="/directory" class="detail-back">&larr; Back to directory</a>
+
+      <div class="detail-card">
+        <div class="detail-header">
+          <div>
+            <h1>{provider.name}</h1>
+            <p class="detail-type">{typeLabels[provider.type] || provider.type}</p>
+          </div>
+          <VerificationBadge tier={provider.verification_tier} />
+        </div>
+
+        <div class="detail-grid">
+          <div class="detail-field">
+            <label>Location</label>
+            <p>{provider.city}, {provider.state}</p>
+          </div>
+          {provider.address && (
+            <div class="detail-field">
+              <label>Address</label>
+              <p>{provider.address}</p>
+            </div>
+          )}
+          {provider.website && (
+            <div class="detail-field">
+              <label>Website</label>
+              <p><a href={provider.website} target="_blank" rel="noopener">{provider.website}</a></p>
+            </div>
+          )}
+          {provider.contact && (
+            <div class="detail-field">
+              <label>Contact</label>
+              <p>{provider.contact}</p>
+            </div>
+          )}
+          {provider.booking_link && (
+            <div class="detail-field">
+              <label>Booking</label>
+              <p><a href={provider.booking_link} target="_blank" rel="noopener">Book online</a></p>
+            </div>
+          )}
+          <div class="detail-field">
+            <label>Languages</label>
+            <p>{provider.languages.join(", ")}</p>
+          </div>
+          <div class="detail-field">
+            <label>Teleconsult</label>
+            <p>{yesNoLabels[provider.teleconsult]}</p>
+          </div>
+          {provider.fee_range && (
+            <div class="detail-field">
+              <label>Fee Range</label>
+              <p>{provider.fee_range}</p>
+            </div>
+          )}
+          {provider.wait_time_estimate && (
+            <div class="detail-field">
+              <label>Wait Time</label>
+              <p>{provider.wait_time_estimate}</p>
+            </div>
+          )}
+        </div>
+
+        <h2 class="section-heading">ADHD-Specific</h2>
+        <div class="detail-grid">
+          <div class="detail-field">
+            <label>Adult ADHD</label>
+            <p>{yesNoLabels[provider.adult_adhd]}</p>
+          </div>
+          <div class="detail-field">
+            <label>Child ADHD</label>
+            <p>{yesNoLabels[provider.child_adhd]}</p>
+          </div>
+          <div class="detail-field">
+            <label>Adolescent ADHD</label>
+            <p>{yesNoLabels[provider.adolescent_adhd]}</p>
+          </div>
+          <div class="detail-field">
+            <label>Assessment Style</label>
+            <p>{assessmentLabels[provider.assessment_style]}</p>
+          </div>
+          <div class="detail-field">
+            <label>Medication Management</label>
+            <p>{yesNoLabels[provider.med_mgmt]}</p>
+          </div>
+          <div class="detail-field">
+            <label>Stimulant Comfort</label>
+            <p>{yesNoLabels[provider.stimulant_comfort]}</p>
+          </div>
+          {provider.comorbidities.length > 0 && (
+            <div class="detail-field">
+              <label>Comorbidity Experience</label>
+              <p>{provider.comorbidities.join(", ")}</p>
+            </div>
+          )}
+        </div>
+
+        {provider.tags.length > 0 && (
+          <div class="detail-tags">
+            {provider.tags.map((t: string) => <span class="tag">{t}</span>)}
+          </div>
+        )}
+
+        {provider.flags.length > 0 && (
+          <div class="detail-flags">
+            {provider.flags.map((f: string) => <span class="badge badge-stale">{f}</span>)}
+          </div>
+        )}
+
+        <div class="detail-meta">
+          <p>Last verified: {provider.last_verified}</p>
+          <p>Source: {provider.source}</p>
+        </div>
+
+        <div class="disclaimer" style="margin-top: 1rem;">
+          This listing contains publicly available information. It is not an endorsement. Always verify details directly with the provider before booking.
+        </div>
+
+        <div class="detail-actions">
+          <a href={reportUrl} target="_blank" rel="noopener" class="btn btn-sm btn-secondary">Report stale / incorrect info</a>
+          <a href={updateUrl} target="_blank" rel="noopener" class="btn btn-sm btn-secondary">Suggest update</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .detail-section {
+    padding: 1.5rem 0 2rem;
+  }
+
+  .detail-back {
+    display: inline-block;
+    margin-bottom: 1rem;
+    font-size: 0.9rem;
+  }
+
+  .detail-card {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius);
+    padding: 1.5rem;
+    box-shadow: var(--shadow);
+  }
+
+  .detail-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+    flex-wrap: wrap;
+  }
+
+  .detail-header h1 {
+    font-size: 1.5rem;
+    font-weight: 700;
+  }
+
+  .detail-type {
+    color: var(--color-text-secondary);
+    font-size: 0.9rem;
+    margin-top: 0.2rem;
+  }
+
+  .section-heading {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin: 1.5rem 0 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--color-border);
+  }
+
+  .detail-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  @media (min-width: 640px) {
+    .detail-grid { grid-template-columns: 1fr 1fr; }
+  }
+
+  .detail-field label {
+    display: block;
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--color-text-secondary);
+    margin-bottom: 0.2rem;
+  }
+
+  .detail-field p {
+    font-size: 0.95rem;
+  }
+
+  .detail-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+    margin-top: 1.25rem;
+  }
+
+  .detail-flags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+    margin-top: 0.75rem;
+  }
+
+  .detail-meta {
+    margin-top: 1.25rem;
+    font-size: 0.85rem;
+    color: var(--color-text-secondary);
+  }
+
+  .detail-meta p {
+    margin-bottom: 0.2rem;
+  }
+
+  .detail-actions {
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+    padding-top: 1rem;
+    margin-top: 1rem;
+    border-top: 1px solid var(--color-border);
+  }
+</style>
