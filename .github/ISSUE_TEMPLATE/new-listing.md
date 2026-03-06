@@ -10,7 +10,7 @@ labels: new-listing
 | Field | Value |
 |-------|-------|
 | **Name** | |
-| **Type** | psychiatrist / clinic / hospital_dept |
+| **Type** | psychiatrist / psychologist / therapist / clinic / hospital_dept |
 | **City** | |
 | **State** | |
 | **Address** | |
